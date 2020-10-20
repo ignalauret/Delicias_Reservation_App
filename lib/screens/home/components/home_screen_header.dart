@@ -24,7 +24,7 @@ class HomeScreenHeader extends StatelessWidget {
               "IL",
               style: TextStyle(
                 color: CustomColors.kRedColor,
-                fontSize: 30,
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),

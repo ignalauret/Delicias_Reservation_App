@@ -18,5 +18,7 @@ class Turn {
     @required this.duration,
     @required this.activity,
     @required this.court,
+    this.withLight = false,
+    this.cost = 350,
   });
 }
