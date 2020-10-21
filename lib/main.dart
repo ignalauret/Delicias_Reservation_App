@@ -1,5 +1,6 @@
 import 'package:delicias_turns_app/providers/turns_provider.dart';
 import 'package:delicias_turns_app/screens/home/home_screen.dart';
+import 'package:delicias_turns_app/screens/new_turn/new_turn_screen.dart';
 import 'package:delicias_turns_app/screens/turn_detail/turn_detail_screen.dart';
 import 'package:delicias_turns_app/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         home: HomeScreen(),
         routes: {
           TurnDetailScreen.routeName: (context) => TurnDetailScreen(),
+          NewTurnScreen.routeName: (context) => NewTurnScreen(),
         },
       ),
     );

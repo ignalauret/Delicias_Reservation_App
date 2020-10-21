@@ -1,7 +1,7 @@
 import 'package:delicias_turns_app/components/action_button.dart';
 import 'package:delicias_turns_app/screens/home/components/home_screen_header.dart';
 import 'package:delicias_turns_app/screens/home/components/turns_list.dart';
-import 'package:delicias_turns_app/screens/turn_detail/turn_detail_screen.dart';
+import 'package:delicias_turns_app/screens/new_turn/new_turn_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ActionButton(
                   label: "Hacer Reserva",
                   onTap: () {
-
+                    Navigator.of(context).pushNamed(NewTurnScreen.routeName);
                   },
                 ),
               )

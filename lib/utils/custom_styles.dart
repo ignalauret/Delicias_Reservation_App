@@ -29,4 +29,10 @@ class CustomStyles {
     color: CustomColors.kGreyColor,
     fontSize: 16,
   );
+
+  static const kSelectionCardStyle = TextStyle(
+    color: CustomColors.kMainColor,
+    fontSize: 15,
+    fontWeight: FontWeight.w600,
+  );
 }
