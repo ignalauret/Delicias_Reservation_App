@@ -1,26 +1,29 @@
 import 'package:delicias_turns_app/utils/constants.dart';
 import 'package:delicias_turns_app/utils/custom_colors.dart';
 import 'package:delicias_turns_app/utils/custom_styles.dart';
+import 'package:delicias_turns_app/utils/time_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-class TurnSelection extends StatelessWidget {
-  TurnSelection(this.selectedIndex, this.startingDate, this.select);
-
-  final int selectedIndex;
-  final DateTime startingDate;
+class HourSelection extends StatefulWidget {
+  HourSelection(this.selectedIndex, this.select);
   final Function select;
+  final int selectedIndex;
+  @override
+  _HourSelectionState createState() => _HourSelectionState();
+}
 
-  Widget _buildDateCard(DateTime date, int index) {
-    final selected = index == selectedIndex;
+class _HourSelectionState extends State<HourSelection> {
+  Widget _buildHourCard(int index) {
+    final selected = index == widget.selectedIndex;
+
     return Expanded(
       child: InkWell(
         onTap: () {
-          select(index, date);
+          widget.select(index);
         },
         child: Container(
-          height: 70,
-          margin: EdgeInsets.symmetric(horizontal: 5),
+          height: 40,
+          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           decoration: BoxDecoration(
             color: selected ? CustomColors.kMainColor : Colors.white,
             borderRadius: BorderRadius.circular(Constants.kCardBorderRadius),
@@ -31,7 +34,7 @@ class TurnSelection extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              "${DateFormat("EE").format(date)} \n ${date.day}",
+              TimeUtils.getHourFromIndex(index),
               textAlign: TextAlign.center,
               style: selected
                   ? CustomStyles.kSelectionCardStyle
@@ -44,10 +47,16 @@ class TurnSelection extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildDateCards(DateTime startingDate) {
-    return List.generate(
-      6,
-      (index) => _buildDateCard(startingDate.add(Duration(days: index)), index),
+  Widget _buildHourRow(int startingIndex) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        _buildHourCard(startingIndex),
+        _buildHourCard(startingIndex + 1),
+        _buildHourCard(startingIndex + 2),
+        _buildHourCard(startingIndex + 3),
+      ],
     );
   }
 
@@ -55,10 +64,13 @@ class TurnSelection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      child: Row(
+      child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: _buildDateCards(startingDate),
+        children: [
+          _buildHourRow(0),
+          _buildHourRow(4),
+          _buildHourRow(8),
+        ],
       ),
     );
   }

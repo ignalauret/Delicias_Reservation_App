@@ -2,25 +2,23 @@ import 'package:delicias_turns_app/utils/constants.dart';
 import 'package:delicias_turns_app/utils/custom_colors.dart';
 import 'package:delicias_turns_app/utils/custom_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-class TurnSelection extends StatelessWidget {
-  TurnSelection(this.selectedIndex, this.startingDate, this.select);
-
+class CourtSelection extends StatelessWidget {
+  CourtSelection(this.selectedIndex, this.select);
   final int selectedIndex;
-  final DateTime startingDate;
   final Function select;
 
-  Widget _buildDateCard(DateTime date, int index) {
+  Widget _buildCourtCard(int index) {
     final selected = index == selectedIndex;
+
     return Expanded(
       child: InkWell(
         onTap: () {
-          select(index, date);
+          select(index);
         },
         child: Container(
-          height: 70,
-          margin: EdgeInsets.symmetric(horizontal: 5),
+          height: 40,
+          margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           decoration: BoxDecoration(
             color: selected ? CustomColors.kMainColor : Colors.white,
             borderRadius: BorderRadius.circular(Constants.kCardBorderRadius),
@@ -31,7 +29,7 @@ class TurnSelection extends StatelessWidget {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              "${DateFormat("EE").format(date)} \n ${date.day}",
+              "Cancha ${index + 1}",
               textAlign: TextAlign.center,
               style: selected
                   ? CustomStyles.kSelectionCardStyle
@@ -44,21 +42,25 @@ class TurnSelection extends StatelessWidget {
     );
   }
 
-  List<Widget> _buildDateCards(DateTime startingDate) {
-    return List.generate(
-      6,
-      (index) => _buildDateCard(startingDate.add(Duration(days: index)), index),
+  Widget _buildCourtRow(int startingIndex) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        _buildCourtCard(startingIndex),
+        _buildCourtCard(startingIndex + 1),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      child: Row(
+      child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: _buildDateCards(startingDate),
+        children: [
+          _buildCourtRow(0),
+          _buildCourtRow(2),
+        ],
       ),
     );
   }
